@@ -47,6 +47,7 @@ A profile is a node in the relational tree:
   "regionId": 15, // could be null. refers to a particular region
   "vanId": 23234, // could be null if not connected to VAN or if this profile isn't matched
   "myCampaignVanId": 98234, // could be null if not connected to VAN or if this profile isn't matched
+  "createdMts": 1592958136539, // millisecond unix timestamp
 }
 ```
 
@@ -89,6 +90,8 @@ A call to action is something that folks are supposed to do (in particular, prof
     }
   ],
   "createdMts": 1563967360107, // millisecond unix timestamp
+  "modifiedMts": 1561987307860, // millisecond unix timestamp
+  isIntroCta: false, // whether or not the CTA is an Intro CTA
   "organizationId": 4 // can ignore this
 }
 ```
