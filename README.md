@@ -1,6 +1,6 @@
 # Empower Export API Documentation
 
-(This document lives at https://gist.github.com/RoboTeddy/7a81ca14c31214e05e233cfe254362ae)
+(This document lives at https://github.com/getempower/api-documentation/blob/master/README.md)
 
 ## Request
 
