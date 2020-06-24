@@ -91,7 +91,7 @@ A call to action is something that folks are supposed to do (in particular, prof
   ],
   "createdMts": 1563967360107, // millisecond unix timestamp
   "modifiedMts": 1561987307860, // millisecond unix timestamp
-  isIntroCta: false, // whether or not the CTA is an Intro CTA
+  "isIntroCta": false, // whether or not the CTA is an Intro CTA
   "organizationId": 4 // can ignore this
 }
 ```
