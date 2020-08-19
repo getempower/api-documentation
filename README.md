@@ -49,7 +49,7 @@ A profile is a node in the relational tree:
   "myCampaignVanId": 98234, // could be null if not connected to VAN or if this profile isn't matched
   "createdMts": 1592958136539, // millisecond unix timestamp
   "lastUsedEmpowerMts": 1592958136789,  // millisecond unix timestamp
-  "currentCtaId": 2164 //which CTA is active for them right now
+  "currentCtaId": 2164 // which CTA is active for them right now
 }
 ```
 
