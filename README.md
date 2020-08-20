@@ -48,6 +48,8 @@ A profile is a node in the relational tree:
   "vanId": 23234, // could be null if not connected to VAN or if this profile isn't matched
   "myCampaignVanId": 98234, // could be null if not connected to VAN or if this profile isn't matched
   "createdMts": 1592958136539, // millisecond unix timestamp
+  "lastUsedEmpowerMts": 1592958136789,  // millisecond unix timestamp
+  "currentCtaId": 2164 // which CTA is active for them right now
 }
 ```
 
@@ -63,7 +65,7 @@ A call to action is something that folks are supposed to do (in particular, prof
 {
   "id": 499, // unique identifier
   "name": "Ask if they're registered to vote", // a string title
-
+  
   // may contain arbitrary html
   "instructionsHtml": "<p>Thank you for becoming a leade! Below is your prioritized list, presently prioritized by their likelihood to vote.&nbsp; High priority is your friends and family that are the least likely to vote.&nbsp; Give them a call and let them know why you care so much about issues that affect and are affect by our government, locally and at the State and Federal levels as well. &nbsp;<b r><br>Let them know you'll be checking in with them about these issues throughout the year as elections come and go.<b r><br>And thank you so much for joining the program!</p>",
 
@@ -71,27 +73,58 @@ A call to action is something that folks are supposed to do (in particular, prof
   // in the relational tree
   "questions": [
     {
+      "type": "normal", // one of "normal", "van" describes the source of the survey question
       "key": 1,
       "text": "Are they registered?",
       "options": [
         "Yes",
         "No",
         "I helped them register"
-      ]
+      ],
+      "values": null, // If a VAN survey question, lists the Survey Response IDs for each option
+      "surveyQuestionVanId": null // If a VAN survey question, the Survey Question ID for the question
     },
     {
+      "type": "normal",
       "key": 2,
       "text": "Do they know where their polling place is?",
       "options": [
         "Yes",
         "No",
         "I helped them look it up"
-      ]
+      ],
+      "values": null,
+      "surveyQuestionVanId": null 
     }
   ],
   "createdMts": 1563967360107, // millisecond unix timestamp
   "modifiedMts": 1561987307860, // millisecond unix timestamp
+  
+  //if prioritizations are turned on, a map of activist code IDs to label with the corresponding priority
+  "prioritizations": [ 
+    {
+      "labelKey": "highPriority", 
+      "vanActivistCodeId": 4356
+    }
+  ], 
+  "regionIds": [245, 289], // regions the CTA is active for
   "isIntroCta": false, // whether or not the CTA is an Intro CTA
+  "scheduledLaunchTimeMts": 1563967360107, // millisecond unix timestamp; if the CTA created and deployed immediately, same as the createdMts
+  "activeUntilMts": null, // millisecond unix timestamp f the CTA should be disabled at any point 
+  "shouldUseAdvancedTargeting": true, // one of true or false
+  
+  // a dictionary detailing which filters to use for the targeting of this CTA. All unused filters are null 
+  "advancedTargetingFilter": {
+      "role": null, 
+      "region": null, 
+      "joinDate": null, 
+      "listSize": null, 
+      "assignedTo": ["fbei678"],
+      "outreachTask": null, 
+      "lastActiveDate": null, 
+      "hasContactsInState": null, 
+      "hasContactsWithSurveyResponse": null
+   },  
   "organizationId": 4 // can ignore this
 }
 ```
