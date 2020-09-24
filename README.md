@@ -2,6 +2,8 @@
 
 (This document lives at https://github.com/getempower/api-documentation/blob/master/README.md)
 
+We may add fields to these objects as new features are rolled out. As such, we recommend building pipe-lines in ways that can account for the objects growing. 
+
 ## Request
 
 - Make an HTTP GET request to `https://api.getempower.com/v1/export`
