@@ -49,7 +49,8 @@ A profile is a node in the relational tree:
   "myCampaignVanId": 98234, // could be null if not connected to VAN or if this profile isn't matched
   "createdMts": 1592958136539, // millisecond unix timestamp
   "lastUsedEmpowerMts": 1592958136789,  // millisecond unix timestamp
-  "currentCtaId": 2164 // which CTA is active for them right now
+  "currentCtaId": 2164, // which CTA is active for them right now
+  "activeCtaIDs": [2164] // placeholder for future functionality of having multiple CTAs per person
 }
 ```
 
@@ -113,18 +114,22 @@ A call to action is something that folks are supposed to do (in particular, prof
   "activeUntilMts": null, // millisecond unix timestamp f the CTA should be disabled at any point 
   "shouldUseAdvancedTargeting": true, // one of true or false
   
-  // a dictionary detailing which filters to use for the targeting of this CTA. All unused filters are null 
+  // a dictionary detailing which filters to use for the targeting of this CTA. All unused filters are set to null 
   "advancedTargetingFilter": {
-      "role": null, 
-      "region": null, 
-      "joinDate": null, 
-      "listSize": null, 
-      "assignedTo": ["fbei678"],
-      "outreachTask": null, 
-      "lastActiveDate": null, 
-      "hasContactsInState": null, 
-      "hasContactsWithSurveyResponse": null
+      "tag": [59], // id of the tag
+      "role": {"organizer": false, "volunteer": true, "campaignDirector": true}, // only keys possible 
+      "state": ["WI"], // list of states of the users who should see the CTA
+      "region": [3368], // list of regions of the users who should see the CTA 
+      "zipCode": ["53201"], // list of zip codes to target users by
+      "joinDate": {"type": "between", "toMts": 1600981504354, "fromMts": 1600549504354}, // currently, only the "between" type is supported, can not create multiple date filters, so this is just one dictionary
+      "listSize": {"max": 10, "min": 0, "type": "between"}, //  currently, only the "between" type is supported, only one possible set of entries here
+      "assignedTo": ["fbei678"], // when targeting by a leader's parent, a list of those parents
+      "outreachTask": null, // not currently implemented
+      "lastActiveDate": null, // not currently implemented 
+      "hasContactsInState": ["WI"], // filter by whether volunteers have contacts in this list of states
+      "hasContactsWithSurveyResponse": [{"ctaId": 648, "answerValue": "No", "questionKey": 2}] // a list of dictionaries if multiple filters applied
    },  
+  
   "organizationId": 4 // can ignore this
 }
 ```
@@ -138,7 +143,6 @@ If someone reaches out to someone with role=contact and logs their outreach, pot
    // the profileEid of the person that was contacted.
    // whoever their parent is should receive "credit" for the outreach.
   "profileEid": "c-33129",
-
   "ctaId": 8, // the call to action they were contacted about
   "contactedMts": 1410169604253, // millisecond unix timestamp
   "answers": {
