@@ -166,7 +166,7 @@ A region is not necessarily geographic; it's however an organization has decided
   "id": 1154, // a unique numeric identifer
   "name": "North Side",
   "inviteCode": "norside", // could be null
-  "ctaId": 597, // the id of the cta currently active for this region
+  "ctaId": 597, // after the introduction of filtered and targeted CTAs, this became a deprecated field.
   "organizationId": 4, // can ignore
   "description": null // a description of the region; can be null
 }
