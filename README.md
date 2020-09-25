@@ -119,6 +119,7 @@ A call to action is something that folks are supposed to do (in particular, prof
   // a dictionary detailing which filters to use for the targeting of this CTA. All unused filters are set to null 
   "advancedTargetingFilter": {
       "tag": [59], // id of the tag
+      "token": null, // this will be a deprecated field shortly
       "role": {"organizer": false, "volunteer": true, "campaignDirector": true}, // only keys possible 
       "state": ["WI"], // list of states of the users who should see the CTA
       "region": [3368], // list of regions of the users who should see the CTA 
