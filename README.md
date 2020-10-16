@@ -104,12 +104,12 @@ A call to action is something that folks are supposed to do (in particular, prof
   "createdMts": 1563967360107, // millisecond unix timestamp
   "updatedMts": 1561987307860, // millisecond unix timestamp
   
-  // A list of different attachments in the CTA that volunteers can easily share with their contacts
+  // A list of different attachments in the CTA that volunteers can easily share with their contacts, organizations can attach up to 3 shareables
   "shareables": [ 
     {
      "type": "link", //one of link, image
-     "url": "https://www.everyaction.com", // the URL of the shareable link (field only exists when type LINK)
-     "imageFilestackHandle": "43q289jfip", // a unique ID for the image
+     "url": "https://www.everyaction.com", // the URL of the shareable link (field only exists when type 'link')
+     "imageFilestackHandle": "43q289jfip", // a unique ID for the image (field only exists when type 'image')
      "displayLabel": "Go vote!" // label shown to users around the shareable
     }
   ], 
