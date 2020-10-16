@@ -68,6 +68,7 @@ A call to action is something that folks are supposed to do (in particular, prof
 {
   "id": 499, // unique identifier
   "name": "Ask if they're registered to vote", // a string title
+  "description": "Voting by mail has started!", // a short sub-title description of the CTA
   
   // may contain arbitrary html
   "instructionsHtml": "<p>Thank you for becoming a leade! Below is your prioritized list, presently prioritized by their likelihood to vote.&nbsp; High priority is your friends and family that are the least likely to vote.&nbsp; Give them a call and let them know why you care so much about issues that affect and are affect by our government, locally and at the State and Federal levels as well. &nbsp;<b r><br>Let them know you'll be checking in with them about these issues throughout the year as elections come and go.<b r><br>And thank you so much for joining the program!</p>",
@@ -101,16 +102,33 @@ A call to action is something that folks are supposed to do (in particular, prof
     }
   ],
   "createdMts": 1563967360107, // millisecond unix timestamp
-  "modifiedMts": 1561987307860, // millisecond unix timestamp
+  "updatedMts": 1561987307860, // millisecond unix timestamp
+  
+  // A list of different attachments in the CTA that volunteers can easily share with their contacts
+  "shareables": [ 
+    {
+     "type": "link", //one of link, image
+     "url": "https://www.everyaction.com", // the URL of the shareable link (field only exists when type LINK)
+     "imageFilestackHandle": "43q289jfip", // a unique ID for the image
+     "displayLabel": "Go vote!" // label shown to users around the shareable
+    }
+  ], 
+  
   
   //if prioritizations are turned on, a map of activist code IDs to label with the corresponding priority
   "prioritizations": [ 
     {
       "labelKey": "highPriority", 
-      "vanActivistCodeId": 4356
+      "vanActivistCodeId": 4356, //legacy for when CTAs were prioritized by activist codes
+      "savedListId": 3279 // ID of the saved list used to prioritize contacts on volunteer's lists
     }
   ], 
+  "defaultPriorityLabelKey": "lowPriority", // In a CTA with prioritizations built in, the label for remaining people not in the high priority bucket
   "regionIds": [245, 289], // regions the CTA is active for
+  
+  "recruitmentQuestionType": "VoteTripling", // one of voteTripling, invite, None to indicate which type of recruitment ask should come after the CTA
+  "recruitmentTrainingUrl": "www.zoom.us", // a link that volunteers can send to contacts to invite them to join a training on how to relationally organize
+  
   "isIntroCta": false, // whether or not the CTA is an Intro CTA
   "scheduledLaunchTimeMts": 1563967360107, // millisecond unix timestamp; if the CTA created and deployed immediately, same as the createdMts
   "activeUntilMts": null, // millisecond unix timestamp f the CTA should be disabled at any point 
