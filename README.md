@@ -2,7 +2,7 @@
 
 (This document lives at https://github.com/getempower/api-documentation/blob/master/README.md)
 
-We may add fields to these objects as new features are rolled out. As such, we recommend building pipe-lines in ways that can account for the objects growing. 
+We may add fields to these objects as new features are rolled out. As such, we recommend building pipe-lines in ways that can account for the objects growing.
 
 ## Request
 
@@ -69,11 +69,11 @@ A call to action is something that folks are supposed to do (in particular, prof
   "id": 499, // unique identifier
   "name": "Ask if they're registered to vote", // a string title
   "description": "Voting by mail has started!", // a short sub-title description of the CTA
-  
-  // may contain arbitrary html
-  "instructionsHtml": "<p>Thank you for becoming a leade! Below is your prioritized list, presently prioritized by their likelihood to vote.&nbsp; High priority is your friends and family that are the least likely to vote.&nbsp; Give them a call and let them know why you care so much about issues that affect and are affect by our government, locally and at the State and Federal levels as well. &nbsp;<b r><br>Let them know you'll be checking in with them about these issues throughout the year as elections come and go.<b r><br>And thank you so much for joining the program!</p>",
 
-  // a list of questions that should be asked of the people beneath you
+  // may contain arbitrary html
+  "instructionsHtml": "<p>Thank you for becoming a leader! Below is your prioritized list, presently prioritized by their likelihood to vote.&nbsp; High priority is your friends and family that are the least likely to vote.&nbsp; Give them a call and let them know why you care so much about issues that affect and are affect by our government, locally and at the State and Federal levels as well. &nbsp;<b r><br>Let them know you'll be checking in with them about these issues throughout the year as elections come and go.<b r><br>And thank you so much for joining the program!</p>",
+
+  // Deprecated. A list of questions that should be asked of the people beneath you
   // in the relational tree
   "questions": [
     {
@@ -98,59 +98,112 @@ A call to action is something that folks are supposed to do (in particular, prof
         "I helped them look it up"
       ],
       "values": null,
-      "surveyQuestionVanId": null 
+      "surveyQuestionVanId": null
     }
   ],
+
+  // A list of questions that should be asked of the people beneath you in the
+  // relational tree. Supersedes "questions". Allows for more than 3 questions and
+  // different types of answer inputs ("RADIO" if the user can select at most 1 answer,
+  // "CHECKBOX" for multiple answers).
+  "prompts": [
+    {
+      "id": 123,  // auto-assigned numeric ID
+      "ctaId": 499, // ID of parent CTA
+      "promptText": "Are they registered?",
+      "answerInputType": "RADIO",
+      "ordering": 1, // 1-indexed position in parent CTA, equivalent to questions[n].key
+      "answers": [{
+        "id": 456,  // auto-assigned numeric ID
+        "promptId": 123,  // ID of parent prompt
+        "answerText": "Yes",
+        "ordering": 1  // 1-indexed position in parent prompt
+      }, {
+        "id": 457,
+        "promptId": 123,
+        "answerText": "No",
+        "ordering": 2
+      }, {
+        "id": 458,
+        "promptId": 123,
+        "answerText": "I helped them register",
+        "ordering": 3
+      }]
+    }, {
+      "id": 124,
+      "ctaId": 499,
+      "promptText": "Do they know where their polling place is?",
+      "answerInputType": "RADIO",
+      "ordering": 2,
+      "answers": [{
+        "id": 459,
+        "promptId": 124,
+        "answerText": "Yes",
+        "ordering": 1,
+      }, {
+        "id": 460,
+        "promptId": 124,
+        "answerText": "No",
+        "ordering": 2,
+      }, {
+        "id": 461,
+        "promptId": 124,
+        "answerText": "I helped them look it up",
+        "ordering": 3
+      }]
+    }
+  ],
+
   "createdMts": 1563967360107, // millisecond unix timestamp
   "updatedMts": 1561987307860, // millisecond unix timestamp
-  
+
   // A list of different attachments in the CTA that volunteers can easily share with their contacts, organizations can attach up to 3 shareables
-  "shareables": [ 
+  "shareables": [
     {
      "type": "link", //one of link, image
      "url": "https://www.everyaction.com", // the URL of the shareable link (field only exists when type 'link')
      "imageFilestackHandle": "43q289jfip", // a unique ID for the image (field only exists when type 'image')
      "displayLabel": "Go vote!" // label shown to users around the shareable
     }
-  ], 
-  
-  
+  ],
+
+
   //if prioritizations are turned on, a map of activist code IDs to label with the corresponding priority
-  "prioritizations": [ 
+  "prioritizations": [
     {
-      "labelKey": "highPriority", 
+      "labelKey": "highPriority",
       "vanActivistCodeId": 4356, //legacy for when CTAs were prioritized by activist codes
       "savedListId": 3279 // ID of the saved list used to prioritize contacts on volunteer's lists
     }
-  ], 
+  ],
   "defaultPriorityLabelKey": "lowPriority", // In a CTA with prioritizations built in, the label for remaining people not in the high priority bucket
   "regionIds": [245, 289], // regions the CTA is active for
-  
+
   "recruitmentQuestionType": "VoteTripling", // one of voteTripling, invite, None to indicate which type of recruitment ask should come after the CTA
   "recruitmentTrainingUrl": "www.zoom.us", // a link that volunteers can send to contacts to invite them to join a training on how to relationally organize
-  
+
   "isIntroCta": false, // whether or not the CTA is an Intro CTA
   "scheduledLaunchTimeMts": 1563967360107, // millisecond unix timestamp; if the CTA created and deployed immediately, same as the createdMts
-  "activeUntilMts": null, // millisecond unix timestamp f the CTA should be disabled at any point 
+  "activeUntilMts": null, // millisecond unix timestamp f the CTA should be disabled at any point
   "shouldUseAdvancedTargeting": true, // one of true or false
-  
-  // a dictionary detailing which filters to use for the targeting of this CTA. All unused filters are set to null 
+
+  // a dictionary detailing which filters to use for the targeting of this CTA. All unused filters are set to null
   "advancedTargetingFilter": {
       "tag": [59], // id of the tag
       "token": null, // this will be a deprecated field shortly
-      "role": {"organizer": false, "volunteer": true, "campaignDirector": true}, // only keys possible 
+      "role": {"organizer": false, "volunteer": true, "campaignDirector": true}, // only keys possible
       "state": ["WI"], // list of states of the users who should see the CTA
-      "region": [3368], // list of regions of the users who should see the CTA 
+      "region": [3368], // list of regions of the users who should see the CTA
       "zipCode": ["53201"], // list of zip codes to target users by
       "joinDate": {"type": "between", "toMts": 1600981504354, "fromMts": 1600549504354}, // currently, only the "between" type is supported, can not create multiple date filters, so this is just one dictionary
       "listSize": {"max": 10, "min": 0, "type": "between"}, //  currently, only the "between" type is supported, only one possible set of entries here
       "assignedTo": ["fbei678"], // when targeting by a leader's parent, a list of those parents
       "outreachTask": null, // not currently implemented
-      "lastActiveDate": null, // not currently implemented 
+      "lastActiveDate": null, // not currently implemented
       "hasContactsInState": ["WI"], // filter by whether volunteers have contacts in this list of states
       "hasContactsWithSurveyResponse": [{"ctaId": 648, "answerValue": "No", "questionKey": 2}] // a list of dictionaries if multiple filters applied
-   },  
-  
+   },
+
   "organizationId": 4 // can ignore this
 }
 ```
@@ -166,11 +219,21 @@ If someone reaches out to someone with role=contact and logs their outreach, pot
   "profileEid": "c-33129",
   "ctaId": 8, // the call to action they were contacted about
   "contactedMts": 1410169604253, // millisecond unix timestamp
+
+  // Deprecated. A map from question key to a single selected option.
   "answers": {
     "1": "Yes", // one of the options from the cta; could be null
     "2": null,
     "3": null
   },
+
+  // A map from prompt ID to a list of selected answer IDs. Supersedes "answers".
+  // Values and list elements are never null, but lists may be empty.
+  "answerIdsByPromptId": {
+    "123": [456],
+    "124": []
+  },
+
   "notes": "They said they're going to vote" // could be null
 }
 ```
