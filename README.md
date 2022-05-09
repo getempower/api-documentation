@@ -189,11 +189,11 @@ A call to action is something that folks are supposed to do (in particular, prof
 
   // a dictionary detailing which filters to use for the targeting of this CTA. All unused filters are set to null
   "advancedTargetingFilter": {
-      "joinDate": {"type": "between", "toMts": 1600981504354, "fromMts": 1600549504354}, // currently, only the "between" type is supported, can not create multiple date filters, so this is just one dictionary
+      "joinDate": {"type": "between", "toMts": 1600981504354, "fromMts": 1600549504354}, // currently, only the "between" type is supported (in the last X days is implemented as a between filter)
       "region": [3368], // list of regions of the users who should see the CTA
       "role": {"campaignDirector": true, "organizer": false, "volunteer": true, "contact": false}, // only keys possible
-      "assignedTo": ["fbei678"], // when targeting by a leader's parent, a list of those parents
-      "listSize": {"max": 10, "min": 0, "type": "between"}, //  currently, only the "between" type is supported, only one possible set of entries here
+      "assignedTo": ["fbei678"], // when targeting by a leader's parent, a list of those parents' EIDs
+      "listSize": {"max": 10, "min": 0, "type": "between"}, //  In addition to the "between" type, you can use "greaterThan" with min or "lessThan" with max.
       "hasContactsInState": ["WI"], // filter by whether volunteers have contacts in this list of states
       "hasCtaResponse": [{"ctaId": 648, "promptId": 123, "answerId": 456}] // a list of dictionaries if multiple filters applied
       "tag": {"ids": [59], "matchingType": "allTags"}, // ids of the tags.  matchingType is "anyTags", "allTags", or "noneTags"
