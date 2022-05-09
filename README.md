@@ -184,27 +184,26 @@ A call to action is something that folks are supposed to do (in particular, prof
 
   "isIntroCta": false, // whether or not the CTA is an Intro CTA
   "scheduledLaunchTimeMts": 1563967360107, // millisecond unix timestamp; if the CTA created and deployed immediately, same as the createdMts
-  "activeUntilMts": null, // millisecond unix timestamp f the CTA should be disabled at any point
-  "shouldUseAdvancedTargeting": true, // one of true or false
+  "activeUntilMts": null, // millisecond unix timestamp. The CTA will be disabled after this point.
+  "shouldUseAdvancedTargeting": true, // true or false
 
   // a dictionary detailing which filters to use for the targeting of this CTA. All unused filters are set to null
   "advancedTargetingFilter": {
-      "tag": [59], // id of the tag
-      "token": null, // this will be a deprecated field shortly
-      "role": {"organizer": false, "volunteer": true, "campaignDirector": true}, // only keys possible
-      "state": ["WI"], // list of states of the users who should see the CTA
-      "region": [3368], // list of regions of the users who should see the CTA
-      "zipCode": ["53201"], // list of zip codes to target users by
       "joinDate": {"type": "between", "toMts": 1600981504354, "fromMts": 1600549504354}, // currently, only the "between" type is supported, can not create multiple date filters, so this is just one dictionary
-      "listSize": {"max": 10, "min": 0, "type": "between"}, //  currently, only the "between" type is supported, only one possible set of entries here
+      "region": [3368], // list of regions of the users who should see the CTA
+      "role": {"campaignDirector": true, "organizer": false, "volunteer": true, "contact": false}, // only keys possible
       "assignedTo": ["fbei678"], // when targeting by a leader's parent, a list of those parents
-      "outreachTask": null, // not currently implemented
-      "lastActiveDate": null, // not currently implemented
+      "listSize": {"max": 10, "min": 0, "type": "between"}, //  currently, only the "between" type is supported, only one possible set of entries here
       "hasContactsInState": ["WI"], // filter by whether volunteers have contacts in this list of states
-      "hasContactsWithSurveyResponse": [{"ctaId": 648, "answerValue": "No", "questionKey": 2}] // a list of dictionaries if multiple filters applied
+      "hasCtaResponse": [{"ctaId": 648, "promptId": 123, "answerId": 456}] // a list of dictionaries if multiple filters applied
+      "tag": {"ids": [59], "matchingType": "allTags"}, // ids of the tags.  matchingType is "anyTags", "allTags", or "noneTags"
+      "hasContactsWithTags": {"ids": [59], "matchingType": "allTags"}, // same format as tag filter
+      "city": ["Madison"], // list of cities of the users who should see the CTA
+      "state": ["WI"], // list of states of the users who should see the CTA
+      "zipCode": ["53201"], // list of zip codes of the users who should see the CTA
    },
 
-  "organizationId": 4 // can ignore this
+  "organizationId": 4 // should always be the same as your organization ID
 }
 ```
 
