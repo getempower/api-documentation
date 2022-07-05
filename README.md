@@ -252,6 +252,27 @@ A region is not necessarily geographic; it's however an organization has decided
 }
 ```
 
+### Shape of `outreachEntries` object
+
+The outreachEntries is a list of objects that represent the organizer-to-volunteer outreach data (including notes, follow up schedule, etc) for a specific organizer and volunteer combination.
+
+```javascript
+{
+  "organizerEid": "u-4-18710",
+  "targetEid": "u-4-121",
+  "outreachCreatedMts": 1590552745646,
+  "outreachDidGetResponse": false,
+  "outreachContactMode": null,
+  "outreachEngagementLevel": null,
+  "outreachNote": null,
+  "outreachCtaProgress": null,
+  "outreachSnoozeType": "untilMts",
+  "outreachSnoozeUntilMts": 1590811944832,
+  "outreachScheduledFollowUpMts": null,
+  "outreachCurrentCtaId": 682
+}
+```
+
 ## Example Access Code
 
 ### Bash
