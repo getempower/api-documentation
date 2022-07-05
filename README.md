@@ -258,18 +258,18 @@ The outreachEntries is a list of objects that represent the organizer-to-volunte
 
 ```javascript
 {
-  "organizerEid": "u-4-18710",
-  "targetEid": "u-4-121",
-  "outreachCreatedMts": 1590552745646,
-  "outreachDidGetResponse": false,
-  "outreachContactMode": null,
-  "outreachEngagementLevel": null,
-  "outreachNote": null,
-  "outreachCtaProgress": null,
-  "outreachSnoozeType": "untilMts",
-  "outreachSnoozeUntilMts": 1590811944832,
-  "outreachScheduledFollowUpMts": null,
-  "outreachCurrentCtaId": 682
+  "organizerEid": "u-4-18710",                 // Organizer's id; string
+  "targetEid": "u-4-121",                      // Who they talked to, id; string
+  "outreachCreatedMts": 1590552745646,         // When outreach was logged, millisecond epoch; int
+  "outreachDidGetResponse": false,             // ; bool
+  "outreachContactMode": null,                 // Currently 'phone', 'text' or 'messenger'; string or NULL
+  "outreachEngagementLevel": null,             // ; NULL
+  "outreachNote": null,                        // Typed notes; string or NULL
+  "outreachCtaProgress": null,                 // 'notStarted', 'inProgress', 'done'; string or NULL
+  "outreachSnoozeType": "untilMts",            // 'untilMts', 'indefinite'; string or NULL
+  "outreachSnoozeUntilMts": 1590811944832,     // when snooze expires, must be for 'untilMts' snooze type; int or NULL
+  "outreachScheduledFollowUpMts": null,        // when a follow up reminder is scheduled, millisecond epoch; int
+  "outreachCurrentCtaId": 682                  // What CTA the outreach corresponds to; int
 }
 ```
 
