@@ -273,6 +273,17 @@ The outreachEntries is a list of objects that represent the organizer-to-volunte
 }
 ```
 
+### Shape of `profileOrganizationTags` object
+
+The profileOrganizationTags is a list of objects that represent the tags assigned to each profile in organization.
+
+```javascript
+{
+  "profileEid": "000LOjiX0OjZKy",  // eid of the profile that has the tag; string
+  "tagId": 86705                   // id of the tag assigned to that profile; number
+}
+````
+
 ## Example Access Code
 
 ### Bash
