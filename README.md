@@ -27,6 +27,8 @@ We may add fields to these objects as new features are rolled out. As such, we r
   - ctas (short for 'calls to action') (an array of `cta` objects)
   - ctaResults (an array of `ctaResult` objects)
   - regions (an array of `region` objects)
+  - outreachEntries (an array of `outreachEntry` objects)
+  - profileOrganizationTags (an array of `profileOrganizationTag` objects)
 
 ### Shape of `profile` object
 
@@ -252,7 +254,7 @@ A region is not necessarily geographic; it's however an organization has decided
 }
 ```
 
-### Shape of `outreachEntries` object
+### Shape of `outreachEntry` object
 
 The outreachEntries is a list of objects that represent the organizer-to-volunteer outreach data (including notes, follow up schedule, etc) for a specific organizer and volunteer combination.
 
@@ -273,7 +275,7 @@ The outreachEntries is a list of objects that represent the organizer-to-volunte
 }
 ```
 
-### Shape of `profileOrganizationTags` object
+### Shape of `profileOrganizationTag` object
 
 The profileOrganizationTags is a list of objects that represent the tags assigned to each profile in organization.
 
