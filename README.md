@@ -220,6 +220,7 @@ If someone reaches out to someone with role=contact and logs their outreach, pot
   "profileEid": "c-33129",
   "ctaId": 8, // the call to action they were contacted about
   "contactedMts": 1410169604253, // millisecond unix timestamp
+  "updatedMts": 1520169604226, // millisecond unix timestamp
 
   // Deprecated. A map from question key to a single selected option.
   "answers": {
@@ -284,7 +285,7 @@ The profileOrganizationTags is a list of objects that represent the tags assigne
   "profileEid": "000LOjiX0OjZKy",  // eid of the profile that has the tag; string
   "tagId": 86705                   // id of the tag assigned to that profile; number
 }
-````
+```
 
 ## Example Access Code
 
