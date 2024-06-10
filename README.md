@@ -51,7 +51,10 @@ A profile is a node in the relational tree:
   "regionId": 15, // could be null. refers to a particular region
   "vanId": 23234, // could be null if not connected to VAN or if this profile isn't matched
   "myCampaignVanId": 98234, // could be null if not connected to VAN or if this profile isn't matched
+  "vanMatchStatus": null, // covers automatic, manual, and import matches along with their failues
   "createdMts": 1592958136539, // millisecond unix timestamp
+  "updatedMts": 1714408323525, // millisecond unix timestamp
+  "notes": "10/10 Account No Notes", // can be null, can be empty, contains user-defined data
   "lastUsedEmpowerMts": 1592958136789,  // millisecond unix timestamp
   "currentCtaId": 2164, // which CTA is active for them right now
   "activeCtaIDs": [2164] // placeholder for future functionality of having multiple CTAs per person
