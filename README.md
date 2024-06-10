@@ -51,7 +51,7 @@ A profile is a node in the relational tree:
   "regionId": 15, // could be null. refers to a particular region
   "vanId": 23234, // could be null if not connected to VAN or if this profile isn't matched
   "myCampaignVanId": 98234, // could be null if not connected to VAN or if this profile isn't matched
-  "vanMatchStatus": null, // covers automatic, manual, and import matches along with their failues
+  "vanMatchStatus": null, // autoMatched, failedAutoMatch, manuallyMatched, failedManualMatch, matchFromImport, null
   "createdMts": 1592958136539, // millisecond unix timestamp
   "updatedMts": 1714408323525, // millisecond unix timestamp
   "notes": "10/10 Account No Notes", // can be null, can be empty, contains user-defined data
