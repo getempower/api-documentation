@@ -214,7 +214,7 @@ A call to action is something that folks are supposed to do (in particular, prof
 
 ### Shape of `ctaResult` object
 
-If someone reaches out to someone with role=contact and logs their outreach, potentially including answers to the question(s) in the call to action, it will show up as a reocrd here
+If someone reaches out to someone with role=contact and logs their outreach, potentially including answers to the question(s) in the call to action, it will show up as a record here
 
 ```javascript
 {
@@ -224,6 +224,7 @@ If someone reaches out to someone with role=contact and logs their outreach, pot
   "ctaId": 8, // the call to action they were contacted about
   "contactedMts": 1410169604253, // millisecond unix timestamp
   "updatedMts": 1520169604226, // millisecond unix timestamp
+  "initialPromptResponse": 1, // value of the prompt response, as defined below
 
   // Deprecated. A map from question key to a single selected option.
   "answers": {
@@ -242,6 +243,13 @@ If someone reaches out to someone with role=contact and logs their outreach, pot
   "notes": "They said they're going to vote" // could be null
 }
 ```
+
+The initialPromptResponse value is an enum that represents the response. The mapping is as follows:
+- 0: No
+- 1: Yes
+- 2: InProgress
+- 3: SomeoneElseResponded
+- 4: NoAnswer
 
 ### Shape of `region` object
 
