@@ -28,6 +28,7 @@ We may add fields to these objects as new features are rolled out. As such, we r
   - ctaResults (an array of `ctaResult` objects)
   - regions (an array of `region` objects)
   - outreachEntries (an array of `outreachEntry` objects)
+  - organizationTags (an array of `organizationTag` objects)
   - profileOrganizationTags (an array of `profileOrganizationTag` objects)
 
 ### Shape of `profile` object
@@ -287,9 +288,20 @@ The outreachEntries is a list of objects that represent the organizer-to-volunte
 }
 ```
 
+### Shape of `organizationTag` object
+
+The organizationTags is a list of objects that represent the tags defined for the organization.
+
+```javascript
+{
+  "id": 86705,                     // id of the tag; number
+  "label": "Do Not Contact"        // label for that tag: string
+}
+```
+
 ### Shape of `profileOrganizationTag` object
 
-The profileOrganizationTags is a list of objects that represent the tags assigned to each profile in organization.
+The profileOrganizationTags is a list of objects that represent the tags assigned to each profile in the organization. The label associated to the tag id can be found in `organizationTags`.
 
 ```javascript
 {
