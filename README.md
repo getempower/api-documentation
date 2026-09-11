@@ -30,8 +30,9 @@ If you intend to use data from this export in a SQL or similar database, we sugg
 /ctas/results
 /ctas/results/answers
 /outreachEntries
-
 ```
+
+Importing in this order ensures that any key constraints are met. When importing, it is better to include an `endMts` argument to prevent dangling references if new data is created during a series of exports.
 
 ## Request
 
