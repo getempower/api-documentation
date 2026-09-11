@@ -8,8 +8,12 @@ The documentation for API v1 can be found [here](https://github.com/getempower/a
 
 ### What's changed since v1?
 
+<details>
+
 - The v1 export fetches all available data for an organization. Requests in v2 can receive a `startMts` and `endMts` argument to limit the amount of data retrieved.
 - Returns are no longer in a single object returned in JSON. Instead, data that would be returned as an array is now in its own endpoint.
+
+</details>
 
 ## Request
 
@@ -61,6 +65,8 @@ print(result)
 #### /profiles
 
 Information about the people in your organization
+
+<details>
 
 - **eid** - Primary key of a profile
 
@@ -122,9 +128,13 @@ Information about the people in your organization
 
 - **promotedByEid** - If this profile began as a contact, the EID of the person who promoted them to a user
 
+</details>
+
 #### /profiles/tags
 
 Tags applied to profiles
+
+<details>
 
 - **eid** - EID of profile tag is associated to; foreign key to `profiles.eid`
 
@@ -136,9 +146,13 @@ Tags applied to profiles
 
 - **createdByProfileEid** - EID of profile that applied the tag to profile referenced in `eid`
 
+</details>
+
 #### /regions
 
 Regions in your organization
+
+<details>
 
 - **id** - ID of the region
 
@@ -154,9 +168,13 @@ Regions in your organization
 
 - **status** - Whether the region has been deleted. `"Active"` or `"Deleted"`
 
+</details>
+
 #### /tags
 
 Tags in your organization
+
+<details>
 
 - **id** - ID of the tag
 
@@ -170,9 +188,13 @@ Tags in your organization
 
 - **updatedMts** - When the tag was last updated, millisecond timestamp. Will be `""` if the tag has never been updated.
 
+</details>
+
 #### /ctas
 
 Calls to action in your organization
+
+<details>
 
 - **id** - ID of the call to action.
 
@@ -222,9 +244,13 @@ Calls to action in your organization
 
 - **shouldShowMatchButton** - Whether the user will be given the option to match their contacts against a voterfile in the call to action.
 
+</details>
+
 #### /ctas/prompts
 
 The survey questions for your CTAs
+
+<details>
 
 - **id** - ID of the prompt in the call to action
 
@@ -250,9 +276,13 @@ The survey questions for your CTAs
 
 - **parentPromptId** - The original prompt this prompt is associated to if it is a saved survey prompt.
 
+</details>
+
 #### /ctas/prompts/answers
 
 The defined answers to the survey questions for your CTAs
+
+<details>
 
 - **id** -
 
@@ -274,9 +304,13 @@ The defined answers to the survey questions for your CTAs
 
 - **isFreeResponse** -
 
+</details>
+
 #### /ctas/results
 
 A response to a CTA
+
+<details>
 
 - **id** -
 
@@ -294,9 +328,13 @@ A response to a CTA
 
 - **initialPromptResponse** -
 
+</details>
+
 #### /ctas/results/answers
 
 Which survey question answers were selected for responses
+
+<details>
 
 - **organizationId** -
 
@@ -308,7 +346,11 @@ Which survey question answers were selected for responses
 
 - **freeResponseAnswerText** -
 
+</details>
+
 #### /outreachEntries
+
+<details>
 
 - **organizationId** -
 
@@ -335,6 +377,8 @@ Which survey question answers were selected for responses
 - **outreachScheduledFollowUpMts** -
 
 - **outreachCurrentCtaId** -
+
+</details>
 
 ## Response
 
