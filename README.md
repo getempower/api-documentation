@@ -36,34 +36,22 @@ Importing in this order ensures that any key constraints are met. When importing
 
 ## Request
 
-- Make an HTTP POST request to `https://api.getempower.com/v2`
+- Make an HTTP GET request to `https://api.getempower.com/v2`
 
 - The request must include an HTTP header with key `secret-token` and the proper value. `secret-token` can also be a comma separated list of tokens (eg: `TOKEN_1,TOKEN2`). Information is returned in one CSV, but each export includes the organization id associated to the row.
 
-- A request may include arguments for `startMts` and `endMts`. Both are millisecond timestamps to define the start and end of the export range respectively. To include these arguments, you must add a header for `ContentType: application/json`.
+- The request must include a `startMts` argument, a millisecond epoch timestamp defining the beginning of the range for export
+
+- A request may include an argument for `endMts`, a millisecond epoch timestamp defining the end of the range for the export. An `endMts` timestamp is recommended to prevent dangling references if data is created during the export process.
 
 ### Example Requests
 
 #### cURL
 
-Without arguments
-
 ```
-curl --request POST \
-  --url http://localhost:3000/v2/export/{ENDPOINT} \
+curl --request GET \
+  --url 'http://localhost:3000/v2/export/profiles?startMts=1767225600000' \
   --header 'secret-token: {YOUR_TOKEN}'
-```
-
-With arguments
-
-```
-curl --request POST \
-  --url http://localhost:3000/v2/export/{ENDPOINT} \
-  --header 'Content-Type: application/json' \
-  --header 'secret-token: {YOUR_TOKEN}' \
-  --data '{
-	"startMts": 1767225600000
-}'
 ```
 
 #### Python
@@ -71,9 +59,10 @@ curl --request POST \
 ```python
 import requests # Library: https://requests.readthedocs.io/
 
-url = 'https://api.getempower.com/v2/export/{EXPORT}'
-secret_token = {YOUR_TOKEN}
-result = requests.get(url, headers={'secret-token': secret_token}).json()
+url = 'http://localhost:3000/v2/export/{EXPORT}'
+secret_token = '{YOUR_TOKEN}'
+startMts = 1767225600000
+result = requests.get(url, headers={'secret-token': secret_token}, params={'startMts': startMts}).text
 print(result)
 ```
 
