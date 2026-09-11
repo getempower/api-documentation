@@ -15,9 +15,25 @@ The documentation for API v1 can be found [here](https://github.com/getempower/a
 
 </details>
 
-## Request
+## Export Order
 
-### Usage
+If you intend to use data from this export in a SQL or similar database, we suggest calling the export in the following order so that necessary keys are present.
+
+```
+/regions
+/tags
+/ctas
+/ctas/prompts
+/ctas/prompts/answers
+/profiles
+/profiles/tags
+/ctas/results
+/ctas/results/answers
+/outreachEntries
+
+```
+
+## Request
 
 - Make an HTTP POST request to `https://api.getempower.com/v2`
 
@@ -154,7 +170,7 @@ Regions in your organization
 
 <details>
 
-- **id** - ID of the region
+- **id** - Primary key, id of the region.
 
 - **organizationId** - ID of the organization the region is in
 
@@ -176,7 +192,7 @@ Tags in your organization
 
 <details>
 
-- **id** - ID of the tag
+- **id** - Primary key, ID of the tag.
 
 - **organizationId** - ID of the organization the tag is in
 
@@ -196,7 +212,7 @@ Calls to action in your organization
 
 <details>
 
-- **id** - ID of the call to action.
+- **id** - Primary key, ID of the call to action.
 
 - **organizationId** - ID of the organization the call to action is in.
 
@@ -252,7 +268,7 @@ The survey questions for your CTAs
 
 <details>
 
-- **id** - ID of the prompt in the call to action
+- **id** - Primary key, id of the prompt
 
 - **organizationId** - ID of the organization the call to action the prompt is associated to is in.
 
