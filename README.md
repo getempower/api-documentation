@@ -376,13 +376,13 @@ The notes entered when a director or organizer selects 'Log a note' while viewin
 
 <details>
 
+- **uuid** - Primary key, ID of the logged note.
+
 - **organizationId** - ID of the organization this result answer is associated to is in.
 
 - **organizerEid** - EID of the profile creating the note
 
 - **targetEid** - EID of the profile the note is about
-
-- **uuid** -
 
 - **outreachCreatedMts** - When the note was logged
 
