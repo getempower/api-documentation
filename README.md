@@ -154,7 +154,7 @@ Information about the people in your organization
 
 #### /profiles/tags
 
-Tags applied to profiles
+Tags applied to profiles. This endpoint does not filter on `startMts` and `endMts`, and will include all tag associations, but does require a `startMts` argument.
 
 <details>
 
@@ -381,6 +381,8 @@ The notes entered when a director or organizer selects 'Log a note' while viewin
 - **organizerEid** - EID of the profile creating the note
 
 - **targetEid** - EID of the profile the note is about
+
+- **uuid** -
 
 - **outreachCreatedMts** - When the note was logged
 
