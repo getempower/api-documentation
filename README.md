@@ -34,6 +34,22 @@ If you intend to use data from this export in a SQL or similar database, we sugg
 
 Importing in this order ensures that any key constraints are met. When importing, it is better to include an `endMts` argument to prevent dangling references if new data is created during a series of exports.
 
+### Structure of a Call to Action
+
+A call to action is a set of instructions, often with a set of prompts for the user to ask about when speaking to a contact.
+
+The definition of a call to action looks like this
+
+```
+ctas -1:M-> prompts -1:M-> answers
+```
+
+When a user records outreach to a contact, it creates a result. `results/answers` records all answer selections the user recorded for the response.
+
+```
+result (call to action id, user eid, contact eid) -1:M-> results/answers (result id, answer id, prompt id)
+```
+
 ## Request
 
 - Make an HTTP GET request to `https://api.getempower.com/v2`
@@ -100,11 +116,11 @@ Information about the people in your organization
 
 - **zip** - Profile 5 digit zip code
 
-- **myVotersVanId**
+- **myVotersVanId** - If the organization is connected to VAN with MyVoters integration enabled, the ID of the contact in VAN MyVoters
 
-- **myCampaignVanId**
+- **myCampaignVanId** - If the organization is connected to VAN with MyCampaign integration enabled, the ID of the contact in VAN MyCampaign
 
-- **vanMatchStatus**
+- **vanMatchStatus** - Whether the contact has been matched to a contact in VAN. One of `"autoMatched"`, `"failedAutoMatch"`, `"manuallyMatched"`, `"failedManualMatch"`, `"matchFromImport"` or `NULL`
 
 - **lastUsedEmpowerMts** - Millisecond epoch timestamp, the last time the user signed into Empower
 
@@ -116,7 +132,7 @@ Information about the people in your organization
 
 - **updatedMts** - When the profile was last updated, millisecond timestamp. Will be `""` if the profile has never been updated.
 
-- **isDeleted** - Whether is the profile is deleted, `"1"` or `"0"`
+- **isDeleted** - Whether is the profile is deleted, `true` or `false`
 
 - **createdByProfileEid** - EID of the profile that created this profile
 
@@ -242,7 +258,7 @@ Calls to action in your organization
 
 - **actionType** - The type of call to action. `"personal"`, `"relational"`, `"canvassing"`, `"phoneCanvassing"`, `"textCanvassing"`, `"doorCanvassing"`, or `"organizerFollowUp"`.
 
-- **turfCuttingType** -
+- **turfCuttingType** - For canvassing calls to action, whether the uploaded list assigns turfs or allows users to request turfs dynamically. `"request"`, `"manual"` or `NULL`.
 
 - **conversationStarter** - Text shown to users as an example of how to begin a conversation for the call to action. May include placeholders such as `{recipientname}`, `{sendername}`, and `{orgname}`.
 
@@ -274,7 +290,7 @@ The survey questions for your CTAs
 
 - **ordering** - The order prompts will be displayed to users in.
 
-- **dependsOnInitialDispositionResponse** - For canvassing, how the initial question about whether the user was able to speak to the contact. 0 = No, 1 = Yes, 2 = InProgress, 3 = SomeoneElseResponded, 4 = NoAnswer,
+- **dependsOnInitialDispositionResponse** - Whether this prompt requires a particular answer to `initialPromptResponse` in results. For canvassing, `3 = SomeoneElseResponded` will cause an additional prompt to be displayed for who they spoke to.
 
 - **usesMessageDrafts** - Whether message drafts were provided for this prompt. `true` or `false`. If `true`, `defaultReplySuggestion` may be provided for answers associated to this prompt, and represent a draft message for the user to modify and send in response during a conversation.
 
@@ -286,103 +302,91 @@ The survey questions for your CTAs
 
 #### /ctas/prompts/answers
 
-The defined answers to the survey questions for your CTAs
+The defined answers to the survey questions for your CTAs.
 
 <details>
 
-- **id** -
+- **id** - Primary key, ID of the call to action answer.
 
-- **organizationId** -
+- **organizationId** - ID of the organization the answer is associated to is in.
 
-- **promptId** -
+- **promptId** - ID of the prompt the answer is to.
 
-- **answerText** -
+- **answerText** - The text of the answer displayed in the application.
 
-- **vanId** -
+- **vanId** - If the prompt is associated to VAN, the response this answer is associated to.
 
-- **isDeleted** -
+- **isDeleted** - Whether the answer is still selectable, `true` or `false`.
 
-- **ordering** -
+- **ordering** - The order the answer will appear in under the prompt.
 
-- **defaultReplySuggestion** -
+- **defaultReplySuggestion** - Depends on `prompts.usesMessageDrafts` and `prompts.usesTalkingPoints`. Either the message draft or the talking points associated to this answer.
 
-- **parentAnswerId** -
+- **parentAnswerId** - If the prompt this answer is associated to has a `parentPromptId`, the answer under that prompt that this answer is associated to.
 
-- **isFreeResponse** -
+- **isFreeResponse** - Whether this answer is a free response option, giving the user a space to enter freeform text
 
 </details>
 
 #### /ctas/results
 
-A response to a CTA
+A response to the call to action. For a call to action, a user will have one of these to each contact they've spoken to.
 
 <details>
 
-- **id** -
+- **id** - Primary key, ID of the result
 
-- **organizationId** -
+- **organizationId** - ID of the organization this result is associated to is in.
 
-- **userEid** -
+- **userEid** - EID of the person reaching out to a contact.
 
-- **contactEid** -
+- **contactEid** - EID of the contact reached out to in this result.
 
-- **ctaId** -
+- **ctaId** - ID of the call to action this result is associated to, foreign key to `ctas.id`.
 
-- **createdMts** -
+- **createdMts** - When this response was first logged, millisecond timestamp.
 
-- **updatedMts** -
+- **updatedMts** - When this response was last updated, millisecond timestamp.
 
-- **initialPromptResponse** -
+- **initialPromptResponse** - For canvassing, how the initial question about whether the user was able to speak to the contact. 0 = No, 1 = Yes, 2 = InProgress, 3 = SomeoneElseResponded, 4 = NoAnswer.
 
 </details>
 
 #### /ctas/results/answers
 
-Which survey question answers were selected for responses
+Join connecting a result (conversation from user to contact) to the answers selected as part of that conversation.
 
 <details>
 
-- **organizationId** -
+- **organizationId** - ID of the organization this result answer is associated to is in.
 
-- **resultId** -
+- **resultId** - ID of the result this answer is associated to, foreign key to `ctas/results/` `id`.
 
-- **answerId** -
+- **answerId** - ID of the answer selected for this result.
 
-- **promptId** -
+- **promptId** - ID of the prompt being responded to for this answer.
 
-- **freeResponseAnswerText** -
+- **freeResponseAnswerText** - If the answer allows for free response, the text entered for that response.
 
 </details>
 
 #### /outreachEntries
 
+The notes entered when a director or organizer selects 'Log a note' while viewing another user's profile.
+
 <details>
 
-- **organizationId** -
+- **organizationId** - ID of the organization this result answer is associated to is in.
 
-- **organizerEid** -
+- **organizerEid** - EID of the profile creating the note
 
-- **targetEid** -
+- **targetEid** - EID of the profile the note is about
 
-- **outreachCreatedMts** -
+- **outreachCreatedMts** - When the note was logged
 
-- **outreachDidGetResponse** -
+- **outreachNote** - Content of the note
 
-- **outreachContactMode** -
-
-- **outreachEngagementLevel** -
-
-- **outreachNote** -
-
-- **outreachCtaProgress** -
-
-- **outreachSnoozeType** -
-
-- **outreachSnoozeUntilMts** -
-
-- **outreachScheduledFollowUpMts** -
-
-- **outreachCurrentCtaId** -
+- **outreachCurrentCtaId** - The call to action that was most recently assigned to the user when the note was logged.
 
 </details>
 
