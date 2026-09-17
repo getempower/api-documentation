@@ -15,6 +15,10 @@ The documentation for API v1 can be found [here](https://github.com/getempower/a
 
 </details>
 
+## Security
+
+If your secret token is ever exposed or you would like to rotate it, submit a ticket [here](https://empowerhelp.zohodesk.com/portal/en/kb).
+
 ## Export Order
 
 If you intend to use data from this export in a SQL or similar database, we suggest calling the export in the following order so that necessary keys are present.
@@ -54,7 +58,7 @@ result (call to action ID, user EID, contact EID) -1:M-> results/answers (result
 
 - Make an HTTP GET request to `https://api.getempower.com/v2`
 
-- The request must include an HTTP header with key `secret-token` and the proper value. Your secret token can be copied from your organization settings under 'API Export' -> 'Copy token'. `secret-token` can also be a comma separated list of tokens (eg: `TOKEN_1,TOKEN2`). Information is returned in one CSV, but each export includes the organization ID associated to the row.
+- The request must include an HTTP header with key `secret-token` and the proper value. Your secret token can be copied from your organization settings under 'API Export' -> 'Copy token'. **Your secret token is your API key for the export, and should not be shared. No one from Empower will ever ask for your secret token. If you suspect your token is compromised, or would otherwise like it rotated, submit a ticket [here](https://empowerhelp.zohodesk.com/portal/en/kb).** `secret-token` can also be a comma separated list of tokens (eg: `TOKEN_1,TOKEN2`). Information is returned in one CSV, but each export includes the organization ID associated to the row.
 
 - The request must include a `startMts` argument, a millisecond epoch timestamp defining the beginning of the range for export
 
@@ -407,7 +411,3 @@ The notes entered when a director or organizer selects 'Log a note' while viewin
 "1","1","TAG","","1767225600000",""
 "2","1","TAG2","","1767225600001",""
 ```
-
-## Security
-
-If your `secret-token` is ever exposed or you would like to rotate it, just let us know.
