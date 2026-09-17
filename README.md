@@ -36,9 +36,9 @@ Importing in this order ensures that any key constraints are met. When importing
 
 ### Structure of a Call to Action
 
-A call to action is a set of instructions, often with a set of prompts for the user to ask about when speaking to a contact.
+A call to action is a set of instructions, often with a set of survey questions for the user to ask when engaging with a contact.
 
-The definition of a call to action looks like this
+The definition of a call to action looks like this, where `-1:M->` is one-to-many.
 
 ```
 ctas -1:M-> prompts -1:M-> answers
@@ -47,14 +47,14 @@ ctas -1:M-> prompts -1:M-> answers
 When a user records outreach to a contact, it creates a result. `results/answers` records all answer selections the user recorded for the response.
 
 ```
-result (call to action id, user eid, contact eid) -1:M-> results/answers (result id, answer id, prompt id)
+result (call to action ID, user EID, contact EID) -1:M-> results/answers (result ID, answer ID, prompt ID)
 ```
 
 ## Request
 
 - Make an HTTP GET request to `https://api.getempower.com/v2`
 
-- The request must include an HTTP header with key `secret-token` and the proper value. `secret-token` can also be a comma separated list of tokens (eg: `TOKEN_1,TOKEN2`). Information is returned in one CSV, but each export includes the organization id associated to the row.
+- The request must include an HTTP header with key `secret-token` and the proper value. Your secret token can be copied from your organization settings under 'API Export' -> 'Copy token'. `secret-token` can also be a comma separated list of tokens (eg: `TOKEN_1,TOKEN2`). Information is returned in one CSV, but each export includes the organization ID associated to the row.
 
 - The request must include a `startMts` argument, a millisecond epoch timestamp defining the beginning of the range for export
 
@@ -67,7 +67,7 @@ result (call to action id, user eid, contact eid) -1:M-> results/answers (result
 ```
 curl --request GET \
   --url 'http://localhost:3000/v2/export/profiles?startMts=1767225600000' \
-  --header 'secret-token: {YOUR_TOKEN}'
+  --header 'secret-token: YOUR_TOKEN'
 ```
 
 #### Python
@@ -75,8 +75,8 @@ curl --request GET \
 ```python
 import requests # Library: https://requests.readthedocs.io/
 
-url = 'http://localhost:3000/v2/export/{EXPORT}'
-secret_token = '{YOUR_TOKEN}'
+url = 'http://localhost:3000/v2/export/{EXPORT ENDPOINT}'
+secret_token = 'YOUR_TOKEN'
 startMts = 1767225600000
 result = requests.get(url, headers={'secret-token': secret_token}, params={'startMts': startMts}).text
 print(result)
@@ -90,65 +90,65 @@ Information about the people in your organization
 
 <details>
 
-- **eid** - Primary key of a profile
+- **eid** - Primary key of a profile.
 
-- **organizationId** - Id of profile's organization; foreign key to `organizations.id`
+- **organizationId** - Id of profile's organization; foreign key to `organizations.id`.
 
-- **parentProfileEid** - EID of profile's current parent
+- **parentProfileEid** - EID of profile's current parent.
 
-- **role** - Role of profile in organization, one of `"volunteer"`, `"organizer"`, `"campaignDirector"`
+- **role** - Role of profile in organization, one of `"contact"`, `"volunteer"`, `"organizer"`, `"campaignDirector"`.
 
-- **firstName** - Profile first name
+- **firstName** - Profile first name.
 
-- **lastName** - Profile last name
+- **lastName** - Profile last name.
 
-- **email** - Profile email
+- **email** - Profile email.
 
-- **phone** - Profile phone
+- **phone** - Profile phone.
 
-- **address** - Profile address line 1
+- **address** - Profile address line 1.
 
-- **address2** - Profile address line 2
+- **address2** - Profile address line 2.
 
-- **city** - Profile city
+- **city** - Profile city.
 
-- **state** - Profile state, 2 characters
+- **state** - Profile state, 2 characters.
 
-- **zip** - Profile 5 digit zip code
+- **zip** - Profile 5 digit zip code.
 
-- **myVotersVanId** - If the organization is connected to VAN with MyVoters integration enabled, the ID of the contact in VAN MyVoters
+- **myVotersVanId** - If the organization is connected to VAN with MyVoters integration enabled, the ID of the contact in VAN MyVoters. This will only be set if the profile is matched to an entry in VAN.
 
-- **myCampaignVanId** - If the organization is connected to VAN with MyCampaign integration enabled, the ID of the contact in VAN MyCampaign
+- **myCampaignVanId** - If the organization is connected to VAN with MyCampaign integration enabled, the ID of the contact in VAN MyCampaign. This will only be set if the profile is matched to an entry in VAN.
 
-- **vanMatchStatus** - Whether the contact has been matched to a contact in VAN. One of `"autoMatched"`, `"failedAutoMatch"`, `"manuallyMatched"`, `"failedManualMatch"`, `"matchFromImport"` or `NULL`
+- **vanMatchStatus** - Whether the contact has been matched to a contact in VAN. One of `"autoMatched"`, `"failedAutoMatch"`, `"manuallyMatched"`, `"failedManualMatch"`, `"matchFromImport"` or `NULL`.
 
-- **lastUsedEmpowerMts** - Millisecond epoch timestamp, the last time the user signed into Empower
+- **lastUsedEmpowerMts** - Millisecond epoch timestamp, the last time the user signed into Empower.
 
-- **notes** - Notes entered on the profile page
+- **notes** - Notes entered on the profile page.
 
-- **regionId** - The region the profile is in; foreign key to `regions.id`
+- **regionId** - The region the profile is in; foreign key to `regions.id`.
 
-- **createdMts** - When the profile was created, millisecond timestamp
+- **createdMts** - When the profile was created, millisecond timestamp.
 
 - **updatedMts** - When the profile was last updated, millisecond timestamp. Will be `""` if the profile has never been updated.
 
-- **isDeleted** - Whether is the profile is deleted, `true` or `false`
+- **isDeleted** - Whether is the profile is deleted, `true` or `false`.
 
-- **createdByProfileEid** - EID of the profile that created this profile
+- **createdByProfileEid** - EID of the profile that created this profile.
 
-- **updatedByProfileEid** - EID of the profile that last updated this profile
+- **updatedByProfileEid** - EID of the profile that last updated this profile.
 
-- **referredByEid** - For referral programs, EID of the profile that referred this profile
+- **referredByEid** - For referral programs, EID of the profile that referred this profile.
 
-- **relationship** - Whether this is a profile added personally or through canvassing. `"personal"` or `"canvassing"`
+- **relationship** - Whether this is a profile added personally or through canvassing. `"personal"` or `"canvassing"`.
 
-- **firstUsedEmpowerMts** - When this profile first signed into Empower, millisecond timestamp
+- **firstUsedEmpowerMts** - When this profile first signed into Empower, millisecond timestamp.
 
-- **phoneAddressBookEntryId**
+- **phoneAddressBookEntryId**.
 
 - **canManageOwnCtas** - For organizers (role = `"organizer"`), whether or not they are able to able to modify the calls to action for the region they are in.
 
-- **promotedByEid** - If this profile began as a contact, the EID of the person who promoted them to a user
+- **promotedByEid** - If this profile began as a contact, the EID of the person who promoted them to a user.
 
 </details>
 
@@ -158,15 +158,15 @@ Tags applied to profiles. This endpoint does not filter on `startMts` and `endMt
 
 <details>
 
-- **eid** - EID of profile tag is associated to; foreign key to `profiles.eid`
+- **eid** - EID of the profile the tag is associated to; foreign key to `profiles.eid`.
 
-- **tagId** - Tag ID of tag associated to profile; foreign key to `tags.id`
+- **tagId** - Tag ID of tag associated to profile; foreign key to `tags.id`.
 
-- **createdMts** - When the tag was associated to the profile
+- **createdMts** - When the tag was associated to the profile.
 
-- **organizationId** - ID of the organization the profile is in
+- **organizationId** - ID of the organization the profile is in.
 
-- **createdByProfileEid** - EID of profile that applied the tag to profile referenced in `eid`
+- **createdByProfileEid** - EID of profile that applied the tag to profile referenced in `eid`.
 
 </details>
 
@@ -176,19 +176,19 @@ Regions in your organization
 
 <details>
 
-- **id** - Primary key, id of the region.
+- **id** - Primary key, ID of the region.
 
-- **organizationId** - ID of the organization the region is in
+- **organizationId** - ID of the organization the region is in.
 
-- **name** - Name of the region
+- **name** - Name of the region.
 
-- **inviteCode** - Latest invite code that will put users into the region when used
+- **inviteCode** - Latest invite code that will put users into the region when used.
 
-- **inviteCodeCreatedMts** - When the latest invite code was created
+- **inviteCodeCreatedMts** - When the latest invite code was created.
 
-- **description** - Description of the region
+- **description** - Description of the region.
 
-- **status** - Whether the region has been deleted. `"Active"` or `"Deleted"`
+- **status** - Whether the region has been deleted. `"Active"` or `"Deleted"`.
 
 </details>
 
@@ -200,13 +200,13 @@ Tags in your organization
 
 - **id** - Primary key, ID of the tag.
 
-- **organizationId** - ID of the organization the tag is in
+- **organizationId** - ID of the organization the tag is in.
 
-- **label** - Label of the tag (what is shown in Empower)
+- **label** - Label of the tag (what is shown in Empower).
 
-- **description** - Description of the tag
+- **description** - Description of the tag.
 
-- **createdMts** - When the tag was created, millisecond timestamp
+- **createdMts** - When the tag was created, millisecond timestamp.
 
 - **updatedMts** - When the tag was last updated, millisecond timestamp. Will be `""` if the tag has never been updated.
 
@@ -234,7 +234,7 @@ Calls to action in your organization
 
 - **updatedMts** - When the call to action was last updated, millsecond timestamp. Will be `""` if the call to action has never been updated.
 
-- **recruitmentQuestionType** - The recruitment prompt selected under 'Recruitment survey question' in the editor. `"invite"`, `"training"`, `"voteTripling"`, `"none"`, or `""`
+- **recruitmentQuestionType** - The recruitment prompt selected under 'Recruitment survey question' in the editor. `"invite"`, `"training"`, `"voteTripling"`, `"none"`, or `""`.
 
 - **recruitmentTrainingUrl** - URL for users to access for training. Only set when `recruitmentQuestionType` is `"training"`.
 
@@ -244,7 +244,7 @@ Calls to action in your organization
 
 - **scheduledLaunchTimeMts** - When the call to action is(was) scheduled to become visible to users.
 
-- **activeUntilMts** - When the call to action will no longer be visible to users.
+- **activeUntilMts** - When the call to action will no longer be visible to users. If no expiration time is set, this will be `null`.
 
 - **shouldUseAdvancedTargeting** - Whether additional filters will be used to determine which users see the call to action. `true` or `false`.
 
@@ -274,15 +274,15 @@ The survey questions for your CTAs
 
 <details>
 
-- **id** - Primary key, id of the prompt
+- **id** - Primary key, ID of the prompt.
 
-- **organizationId** - ID of the organization the call to action the prompt is associated to is in.
+- **organizationId** - ID of the organization the call to action the prompt is associated.
 
-- **ctaId** - ID of the call to action the prompt is associated to
+- **ctaId** - ID of the call to action the prompt is associated to.
 
-- **promptText** - Text of the prompt
+- **promptText** - Text of the prompt.
 
-- **vanId** - VAN survey question ID
+- **vanId** - VAN survey question ID.
 
 - **isDeleted** - Whether the prompt has been deleted from the call to action. `true` or `false`. Deletion means that the prompt does not show in the call to action, but does not mean there are no responses if the prompt was previously visible.
 
@@ -294,7 +294,7 @@ The survey questions for your CTAs
 
 - **usesMessageDrafts** - Whether message drafts were provided for this prompt. `true` or `false`. If `true`, `defaultReplySuggestion` may be provided for answers associated to this prompt, and represent a draft message for the user to modify and send in response during a conversation.
 
-- **usesTalkingPoints** - Whether talking points were provided for this prompt. `true` or `false`. If `true`, `defaultReplySuggestion` may be provided for answers associated to this prompt, and represent additional information provided to users to help respond to someone their speaking with.
+- **usesTalkingPoints** - Whether talking points were provided for this prompt. `true` or `false`. If `true`, `defaultReplySuggestion` may be provided for answers associated to this prompt, and represent additional information provided to users to help respond to someone they're speaking with.
 
 - **parentPromptId** - The original prompt this prompt is associated to if it is a saved survey prompt.
 
@@ -308,15 +308,15 @@ The defined answers to the survey questions for your CTAs.
 
 - **id** - Primary key, ID of the call to action answer.
 
-- **organizationId** - ID of the organization the answer is associated to is in.
+- **organizationId** - ID of the organization the answer is associated.
 
-- **promptId** - ID of the prompt the answer is to.
+- **promptId** - ID of the prompt the answer is associated with.
 
 - **answerText** - The text of the answer displayed in the application.
 
 - **vanId** - If the prompt is associated to VAN, the response this answer is associated to.
 
-- **isDeleted** - Whether the answer is still selectable, `true` or `false`.
+- **isDeleted** - Whether the answer is still selectable, `true` or `false`. Deletion means that the answer does not show in the call to action, but does not mean there are no responses if the answer was previously visible.
 
 - **ordering** - The order the answer will appear in under the prompt.
 
@@ -324,7 +324,7 @@ The defined answers to the survey questions for your CTAs.
 
 - **parentAnswerId** - If the prompt this answer is associated to has a `parentPromptId`, the answer under that prompt that this answer is associated to.
 
-- **isFreeResponse** - Whether this answer is a free response option, giving the user a space to enter freeform text
+- **isFreeResponse** - Whether this answer is a free response option, giving the user a space to enter freeform text.
 
 </details>
 
@@ -334,9 +334,9 @@ A response to the call to action. For a call to action, a user will have one of 
 
 <details>
 
-- **id** - Primary key, ID of the result
+- **id** - Primary key, ID of the result.
 
-- **organizationId** - ID of the organization this result is associated to is in.
+- **organizationId** - ID of the organization this result is associated.
 
 - **userEid** - EID of the person reaching out to a contact.
 
@@ -348,7 +348,7 @@ A response to the call to action. For a call to action, a user will have one of 
 
 - **updatedMts** - When this response was last updated, millisecond timestamp.
 
-- **initialPromptResponse** - For canvassing, how the initial question about whether the user was able to speak to the contact. 0 = No, 1 = Yes, 2 = InProgress, 3 = SomeoneElseResponded, 4 = NoAnswer.
+- **initialPromptResponse** - For canvassing, how the initial question about whether the user was able to speak to the contact was answered. 0 = No, 1 = Yes, 2 = InProgress, 3 = SomeoneElseResponded, 4 = NoAnswer.
 
 </details>
 
@@ -358,7 +358,7 @@ Join connecting a result (conversation from user to contact) to the answers sele
 
 <details>
 
-- **organizationId** - ID of the organization this result answer is associated to is in.
+- **organizationId** - ID of the organization this result answer is associated to.
 
 - **resultId** - ID of the result this answer is associated to, foreign key to `ctas/results/` `id`.
 
@@ -378,15 +378,15 @@ The notes entered when a director or organizer selects 'Log a note' while viewin
 
 - **uuid** - Primary key, ID of the logged note.
 
-- **organizationId** - ID of the organization this result answer is associated to is in.
+- **organizationId** - ID of the organization this result answer is associated.
 
-- **organizerEid** - EID of the profile creating the note
+- **organizerEid** - EID of the profile creating the note.
 
-- **targetEid** - EID of the profile the note is about
+- **targetEid** - EID of the profile the note is about.
 
-- **outreachCreatedMts** - When the note was logged
+- **outreachCreatedMts** - When the note was logged.
 
-- **outreachNote** - Content of the note
+- **outreachNote** - Content of the note.
 
 - **outreachCurrentCtaId** - The call to action that was most recently assigned to the user when the note was logged.
 
@@ -394,11 +394,11 @@ The notes entered when a director or organizer selects 'Log a note' while viewin
 
 ## Response
 
-- The response `Content-Type` header will always be `	text/csv`
+- The response `Content-Type` header will always be `text/csv`
 
 - The response body will be a CSV document.
 
-- **Processes that consume the export should always use column headers, not column index.**
+- **Processes that consume the export should always use column headers, not column index.**.
 
 ### Example CSV Response
 
