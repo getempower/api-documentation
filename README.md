@@ -148,7 +148,7 @@ Information about the people in your organization
 
 - **firstUsedEmpowerMts** - When this profile first signed into Empower, millisecond timestamp.
 
-- **phoneAddressBookEntryId**.
+- **phoneAddressBookEntryId** - Unique identifier for this contact within the parent's mobile device's address book. Only set for contacts created via mobile device and not unique across devices.
 
 - **canManageOwnCtas** - For organizers (role = `"organizer"`), whether or not they are able to able to modify the calls to action for the region they are in.
 
@@ -280,7 +280,7 @@ The survey questions for your CTAs
 
 - **id** - Primary key, ID of the prompt.
 
-- **organizationId** - ID of the organization the call to action the prompt is associated.
+- **organizationId** - ID of the organization the call to action the prompt is associated with.
 
 - **ctaId** - ID of the call to action the prompt is associated to.
 
@@ -312,7 +312,7 @@ The defined answers to the survey questions for your CTAs.
 
 - **id** - Primary key, ID of the call to action answer.
 
-- **organizationId** - ID of the organization the answer is associated.
+- **organizationId** - ID of the organization the answer is associated with.
 
 - **promptId** - ID of the prompt the answer is associated with.
 
@@ -340,7 +340,7 @@ A response to the call to action. For a call to action, a user will have one of 
 
 - **id** - Primary key, ID of the result.
 
-- **organizationId** - ID of the organization this result is associated.
+- **organizationId** - ID of the organization this result is associated with.
 
 - **userEid** - EID of the person reaching out to a contact.
 
@@ -382,7 +382,7 @@ The notes entered when a director or organizer selects 'Log a note' while viewin
 
 - **uuid** - Primary key, ID of the logged note.
 
-- **organizationId** - ID of the organization this result answer is associated.
+- **organizationId** - ID of the organization this result answer is associated with.
 
 - **organizerEid** - EID of the profile creating the note.
 
