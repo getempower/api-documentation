@@ -110,29 +110,48 @@ A call to action is something that folks are supposed to do (in particular, prof
   // A list of questions that should be asked of the people beneath you in the
   // relational tree. Supersedes "questions". Allows for more than 3 questions and
   // different types of answer inputs ("RADIO" if the user can select at most 1 answer,
-  // "CHECKBOX" for multiple answers).
+  // "CHECKBOX" for multiple answers). In the app these are called "survey questions"
   "prompts": [
     {
       "id": 123,  // auto-assigned numeric ID
-      "ctaId": 499, // ID of parent CTA
+      "ctaId": 499, // ID of containing CTA
       "promptText": "Are they registered?",
       "answerInputType": "RADIO",
-      "ordering": 1, // 1-indexed position in parent CTA, equivalent to questions[n].key
+      "ordering": 1, // 1-indexed position in containing CTA, equivalent to questions[n].key
+      "parentPromptId": null, // null unless there is a parent survey question
+      "isDeleted": false,
+      "usesMessageDrafts": false,
+      "usesTalkingPoints": false,
       "answers": [{
         "id": 456,  // auto-assigned numeric ID
-        "promptId": 123,  // ID of parent prompt
+        "promptId": 123,  // ID of containing prompt
         "answerText": "Yes",
-        "ordering": 1  // 1-indexed position in parent prompt
+        "ordering": 1,  // 1-indexed position in containing prompt
+        "vanId": null, // null unless this is has a VAN parent survey question
+        "isDeleted": false,
+        "parentAnswerId": null, //  null unless this answer is from a parent survey question
+        "defaultReplySuggestion": null, // may contain arbitrary html if prompt uses talking point, string if message drafts
+        "isFreeResponse": false, // true if this is a free response or "Other" option
       }, {
         "id": 457,
         "promptId": 123,
         "answerText": "No",
-        "ordering": 2
+        "ordering": 2,
+        "vanId": null,
+        "isDeleted": false,
+        "parentAnswerId": null,
+        "defaultReplySuggestion": null,
+        "isFreeResponse": false,
       }, {
         "id": 458,
         "promptId": 123,
         "answerText": "I helped them register",
-        "ordering": 3
+        "ordering": 3,
+        "vanId": null,
+        "isDeleted": true,
+        "parentAnswerId": null, //  null unless this answer is from a parent survey question
+        "defaultReplySuggestion": null,
+        "isFreeResponse": false,
       }]
     }, {
       "id": 124,
@@ -140,6 +159,8 @@ A call to action is something that folks are supposed to do (in particular, prof
       "promptText": "Do they know where their polling place is?",
       "answerInputType": "RADIO",
       "ordering": 2,
+      "usesMessageDrafts": false,
+      "usesTalkingPoints": true,
       "answers": [{
         "id": 459,
         "promptId": 124,
@@ -150,6 +171,7 @@ A call to action is something that folks are supposed to do (in particular, prof
         "promptId": 124,
         "answerText": "No",
         "ordering": 2,
+        "defaultReplySuggestion": "<ul><li>Would you like help finding it?</li><li>Every vote counts</li></ul>",
       }, {
         "id": 461,
         "promptId": 124,

@@ -10,7 +10,8 @@ The documentation for API v1 can be found [here](https://github.com/getempower/a
 
 <details>
 
-- The v1 export fetches all available data for an organization. Requests in v2 can receive a `startMts` and `endMts` argument to limit the amount of data retrieved.
+- Data is a CSV rather than JSON object.
+- The v1 export fetches all available data for an organization. Requests in v2 must contain a `startMts` and may contain a `endMts` argument to limit the amount of data retrieved.
 - Returns are no longer in a single object returned in JSON. Instead, data that would be returned as an array is now in its own endpoint.
 
 </details>
