@@ -129,7 +129,7 @@ A call to action is something that folks are supposed to do (in particular, prof
         "ordering": 1,  // 1-indexed position in containing prompt
         "vanId": null, // null unless this is has a VAN parent survey question
         "isDeleted": false,
-        "parentAnswerId": null, //  null if unless this answer is from a parent survey question
+        "parentAnswerId": null, //  null unless this answer is from a parent survey question
         "defaultReplySuggestion": null, // may contain arbitrary html if prompt uses talking point, string if message drafts
         "isFreeResponse": false, // true if this is a free response or "Other" option
       }, {
@@ -149,7 +149,7 @@ A call to action is something that folks are supposed to do (in particular, prof
         "ordering": 3,
         "vanId": null,
         "isDeleted": true,
-        "parentAnswerId": null, //  null if unless this answer is from a parent survey question
+        "parentAnswerId": null, //  null unless this answer is from a parent survey question
         "defaultReplySuggestion": null,
         "isFreeResponse": false,
       }]
