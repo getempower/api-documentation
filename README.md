@@ -1,10 +1,10 @@
 # Empower Export API v2 Documentation
 
-(This document lives at https://github.com/getempower/api-documentation/blob/master/README.md)
+(This document lives at https://github.com/getempower/api-documentation/blob/main/README.md)
 
 The Empower API provides a set of endpoints to return CSV information for your organizations.
 
-The documentation for API v1 can be found [here](https://github.com/getempower/api-documentation/blob/master/README_v1.md).
+The documentation for API v1 can be found [here](https://github.com/getempower/api-documentation/blob/main/README_v1.md).
 
 ### What's changed since v1?
 
